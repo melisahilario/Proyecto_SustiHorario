@@ -1,0 +1,152 @@
+# SustiHorario 🎓📱
+
+![Flutter](https://img.shields.io/badge/Flutter-3.x-02569B?style=for-the-badge&logo=flutter&logoColor=white)
+![Dart](https://img.shields.io/badge/Dart-2.19%2B-0175C2?style=for-the-badge&logo=dart&logoColor=white)
+![Firebase](https://img.shields.io/badge/Firebase-Serverless-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+
+**Sistema Inteligente de Gestión de Guardias Docentes.**
+
+SustiHorario es una aplicación móvil multiplataforma desarrollada con **Flutter** y **Firebase** que digitaliza, automatiza y optimiza el flujo completo de gestión de sustituciones en centros educativos. Elimina los procesos manuales, asegura la equidad en el reparto de tareas y ofrece sincronización en tiempo real.
+
+---
+
+## 📑 Tabla de Contenidos
+
+- [Características Principales](#-características-principales)
+- [Arquitectura y Tecnologías](#-arquitectura-y-tecnologías)
+- [Estructura del Proyecto](#-estructura-del-proyecto)
+- [Instalación y Configuración](#-instalación-y-configuración)
+- [Modelo de Datos (NoSQL)](#-modelo-de-datos-nosql)
+- [Seguridad](#-seguridad)
+- [Roadmap](#-roadmap)
+- [Autor](#-autor)
+
+---
+
+## 🚀 Características Principales
+
+El sistema gestiona tres roles diferenciados con interfaces adaptadas:
+
+### 👨‍🏫 Profesor
+- **Gestión de Horario:** Visualización de horario lectivo y marcado de disponibilidad.
+- **Consulta de Guardias:** Acceso en tiempo real a las sustituciones asignadas.
+- **Solicitud de Bajas:** Formulario integrado para comunicar ausencias (enfermedad, personal, etc.).
+
+### 📋 Coordinador
+- **Dashboard de Control:** Resumen de bajas pendientes y guardias del día.
+- **Asignación Inteligente:** Algoritmos que sugieren sustitutos basándose en criterios de equidad y disponibilidad.
+- **Notificaciones:** Alertas de sobrecarga o falta de cobertura.
+
+### ⚙️ Administrador
+- **Gestión Multi-centro:** Configuración de múltiples instituciones educativas.
+- **Auditoría:** Control de usuarios y roles.
+
+---
+
+## 🛠 Arquitectura y Tecnologías
+
+El proyecto sigue una arquitectura limpia basada en **MVVM (Model-View-ViewModel)** y el patrón **Repository**, garantizando un código modular y escalable.
+
+| Capa | Tecnología | Descripción |
+| :--- | :--- | :--- |
+| **Frontend** | Flutter (SDK 3.x) | Framework UI Multiplataforma. |
+| **Backend** | Firebase (BaaS) | Arquitectura Serverless. |
+| **Base de Datos** | Cloud Firestore | NoSQL en tiempo real. |
+| **Auth** | Firebase Auth | Gestión de identidad y roles. |
+| **Estado** | Provider | Gestión de estado reactivo. |
+| **Routing** | GoRouter | Navegación declarativa y Deep Linking. |
+| **CI/CD** | GitHub Actions | Análisis estático y testing automático. |
+
+---
+
+## 📂 Estructura del Proyecto
+
+La organización del código fuente en `/lib` sigue la separación de responsabilidades:
+
+```text
+lib/
+├── main.dart                       # Punto de entrada e inicialización
+├── firebase_options.dart           # Configuración autogenerada
+├── routes/
+│   └── routes.dart                 # Definición de rutas (GoRouter)
+├── models/                         # Modelos de datos (JSON Serialization)
+│   ├── centro_model.dart
+│   ├── user_model.dart
+│   └── horario_model.dart
+├── providers/                      # Lógica de negocio (ViewModel)
+│   ├── horario_provider.dart
+│   └── usuarios_provider.dart
+└── pages/                          # Vistas (UI)
+    ├── loginYregister/
+    ├── profesor/                   # Vistas específicas de Profesor
+    ├── coordinador/                # Vistas específicas de Coordinador
+    └── admin/                      # Vistas específicas de Admin
+💻 Instalación y Configuración
+Prerrequisitos
+Flutter SDK instalado.
+
+Cuenta de Google para Firebase.
+
+Pasos para desplegar
+Clonar el repositorio:
+
+git clone [https://github.com/tu-usuario/sustihorario.git](https://github.com/tu-usuario/sustihorario.git)
+cd sustihorario
+Instalar dependencias:
+
+flutter pub get
+Configurar Firebase: Este proyecto requiere un proyecto de Firebase activo.
+
+Crea un proyecto en Firebase Console.
+
+Usa FlutterFire CLI para configurar las credenciales:
+
+
+flutterfire configure
+Esto generará el archivo lib/firebase_options.dart.
+
+Variables de Entorno: Crea un archivo .env en la raíz (basado en el diseño de despliegue):
+
+Fragmento de código
+
+FIREBASE_PROJECT_ID=tu-project-id
+DEBUG_MODE=true
+Ejecutar la aplicación:
+
+
+flutter run
+💾 Modelo de Datos (NoSQL)
+Se utiliza Cloud Firestore con una estructura desnormalizada para optimizar la velocidad de lectura.
+
+users: Almacena perfil y rol (profesor, coordinador, admin).
+
+horarios: Documentos complejos que contienen mapas anidados de horarioFijo y disponibilidad.
+
+guardias: Registro de sustituciones vinculando profesorAusenteId y sustitutoId.
+
+bajas: Solicitudes de ausencia con fechas y horas afectadas.
+
+🔒 Seguridad
+La seguridad se gestiona mediante Firestore Security Rules, asegurando que la validación ocurra en el servidor:
+
+Autenticación: Obligatoria para todas las operaciones.
+
+Roles: Validaciones hasRole('coordinador') para operaciones críticas.
+
+Privacidad: Los usuarios solo pueden editar su propio horario (isOwner(uid)).
+
+🛣 Roadmap
+Futuras implementaciones planificadas:
+
+[ ] v1.1: Notificaciones Push (FCM) para avisos de guardias.
+
+[ ] v2.0: IA Predictiva para estimar picos de ausentismo.
+
+[ ] v2.5: Integración API con sistemas como Moodle o Google Classroom.
+
+[ ] v3.0: Gamificación y Marketplace de guardias.
+
+👨‍💻 Autor
+Melisa Hilario  DAM - Desarrollo de Aplicaciones Multiplataforma Curso 2025 - 2026
+
